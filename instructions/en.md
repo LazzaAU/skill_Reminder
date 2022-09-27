@@ -51,7 +51,7 @@ In the following utternaces you can do as above to change between reminder or ti
     
     NOTE: the limitation on this quick timer function are.
     * if you reboot you'll loose the timer 
-    * you wont be able to stop the timer as it has no topic
+    * you won't be able to stop the timer as it has no topic
     * you won't be able to ask how longs left on the timer as it has no topic
     * This only works for timer event, not reminder or alarm events
      
@@ -62,7 +62,8 @@ In the following utternaces you can do as above to change between reminder or ti
     the same. IE: Reminder.wav unless you want to edit the code to suit
  
      
-NOTES. *This will not work effectively using the text input widget due to several settings requiring continued dialog*
+NOTES. *This skill will mostly work with Telegram and dialogView , however, it maynot work %100 due to current limitations
+using continued dialog from dialogView or Telegram*
 
 ###Some Pre defined timers
 
@@ -82,4 +83,4 @@ To activate any of these try saying sentences such as the below. or variations o
 - "tell me when to stop washing my hands"
 - "we're brushing our teeth"
 
-NOTE: This skill does not work well with dialogView (yet). Please use voice commands as much as possible
+
