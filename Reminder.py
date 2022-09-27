@@ -61,7 +61,7 @@ class Reminder(AliceSkill):
 	_INTENT_DELETE_REMINDER = Intent('ReminderDelete')
 	_INTENT_USER_RANDOM_ANSWER = Intent('UserRandomAnswer')
 
-
+	_DELETE_ALL = 'delete all'
 	def __init__(self):
 
 		self._spokenDuration = ''
@@ -383,7 +383,7 @@ class Reminder(AliceSkill):
 		:param session: The dialog session
 		:return:
 		"""
-		if 'delete all' in session.slotValue('ReminderDelete'):
+		if self._DELETE_ALL in session.slotValue('ReminderDelete'):
 			self.continueDialog(
 				sessionId=session.sessionId,
 				text=self.randomTalk('respondAskConfirmation', replace=[self._eventType]),
@@ -421,7 +421,7 @@ class Reminder(AliceSkill):
 			except :
 				pass
 		else:
-			if 'delete all' in session.slotValue('ReminderDelete'):
+			if self._DELETE_ALL in session.slotValue('ReminderDelete'):
 				deleteWhat = "all"
 
 		# Delete items from DB
@@ -824,7 +824,7 @@ class Reminder(AliceSkill):
 	def deleteRemindersIntent(self, session: DialogSession):
 		self.setEventType(session)
 
-		if 'delete all' in session.slotValue('ReminderDelete'):
+		if self._DELETE_ALL in session.slotValue('ReminderDelete'):
 			self.askIfTheDetailsAreCorrect(session)
 		else:
 			self.getItemFromList(session, currentEvent="delete")
