@@ -13,10 +13,10 @@
 	},
 	"respondDeleteAll": {
 		"default": [
-			"Não se preocupe, eu excluí o {} para você!",
-			"Tudo organizado, limpo todos os seus {} como se ninguém estivesse aqui.",
-			"As mesas estão limpam mestre. Não há mais {} armazenados!",
-			"{} foi excluído. Trabalho doméstico feito. Acho que vou polir meus resistores agora."
+			"Não se preocupe, eu excluí o {0} para você!",
+			"Tudo organizado, limpo todos os seus {0} como se ninguém estivesse aqui.",
+			"As mesas estão limpam mestre. Não há mais {0} armazenados!",
+			"{0} foi excluído. Trabalho doméstico feito. Acho que vou polir meus resistores agora."
 		],
 		"short": [
 			"Como Ordenado!",
@@ -25,10 +25,10 @@
 	},
 	"respondDelete": {
 		"default": [
-			"Não se preocupe, eu excluí isso {} para você.",
-			"Tudo classificado, limpo seu {} como se ninguém estivesse aqui.",
-			"Uau, eu não apenas excluí, mas enviei o {}  em uma missão para Marte.",
-			"Parece que fiz isso corretamente. Isso {} não está lá agora."
+			"Não se preocupe, eu excluí isso {0} para você.",
+			"Tudo classificado, limpo seu {0} como se ninguém estivesse aqui.",
+			"Uau, eu não apenas excluí, mas enviei o {0}  em uma missão para Marte.",
+			"Parece que fiz isso corretamente. Isso {0} não está lá agora."
 		],
 		"short": [
 			"Como Ordenado!",
@@ -49,7 +49,7 @@
 	},
 	"respondToANoReply": {
 		"default": [
-			"ok, vou voltar a tirar o pó da minha placa de circuito e esquecer isso {} ...",
+			"ok, vou voltar a tirar o pó da minha placa de circuito e esquecer isso {0} ...",
 			"Claro, estou esquecendo que você até disse uma palavra ...",
 			"Ok, estou ocupada esquentando um raspberry pi de qualquer maneira!"
 		],
@@ -60,7 +60,7 @@
 	},
 	"respondSetReminder": {
 		"default": [
-			"O lembrete foi definido para {}.",
+			"O lembrete foi definido para {0}.",
 			"Vou lembrá-lo em {0} sobre o lembrete {1}."
 		],
 		"short": [
@@ -70,18 +70,18 @@
 	},
 	"respondReminderMessage": {
 		"default": [
-			"Que mensagem você gostaria que eu deixasse para este {}?",
-			"Que tópico você gostaria que eu chame de {}?"
+			"Que mensagem você gostaria que eu deixasse para este {0}?",
+			"Que tópico você gostaria que eu chame de {0}?"
 		],
 		"short": [
 			"qual é a mensagem?",
-			"qual é a {} mensagem?"
+			"qual é a {0} mensagem?"
 		]
 	},
 	"respondSetDuration": {
 		"default": [
-			"Para que horas você deseja que o {} seja definido?",
-			"Quando você deseja que o {} ocorra novamente?"
+			"Para que horas você deseja que o {0} seja definido?",
+			"Quando você deseja que o {0} ocorra novamente?"
 		],
 		"short": [
 			"Para quando?",
@@ -94,7 +94,7 @@
 			"Este é o seu {0} para, \"{1}\"."
 		],
 		"short": [
-			"Lembrete {}."
+			"Lembrete {0}."
 		]
 	},
 	"respondConfirmed": {
@@ -108,7 +108,7 @@
 	},
 	"respondNoActive": {
 		"default": [
-			"No momento você não tem {} ativos."
+			"No momento você não tem {0} ativos."
 		],
 		"short": [
 			"Você não tem nenhum."
@@ -125,7 +125,7 @@
 	},
 	"respondAskConfirmation": {
 		"default": [
-			"Tem certeza de que deseja excluir todos os seus {}?"
+			"Tem certeza de que deseja excluir todos os seus {0}?"
 		],
 		"short": [
 			"Tem certeza?"
