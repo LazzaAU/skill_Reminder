@@ -1,5 +1,3 @@
-
-
 import time
 
 from datetime import datetime, timedelta
@@ -7,6 +5,7 @@ from core.base.model.AliceSkill import AliceSkill
 from core.base.model.Intent import Intent
 from core.dialog.model.DialogSession import DialogSession
 from core.util.Decorators import IntentHandler
+from skills.AliceDevTools import AliceDevTools
 
 class Reminder(AliceSkill):
 	"""
@@ -54,6 +53,8 @@ class Reminder(AliceSkill):
 	}
 	_INTENT_PREDEFINED_TIMER = Intent('PreDefinedTimerEvent')
 	_INTENT_ADD_REMINDER = Intent('ReminderEvent')
+	_INTENT_ADD_TIMER = Intent('SetUpTimer')
+	_INTENT_ADD_ALARM = Intent('SetUpAlarm')
 	_INTENT_ADD_DATE = Intent('ReminderTime')
 	_INTENT_ANSWER_YES_OR_NO = Intent('AnswerYesOrNo')
 	_INTENT_TIME_REMAINING = Intent('ReminderRemaining')
@@ -82,6 +83,7 @@ class Reminder(AliceSkill):
 		self._dataBaseList = ['MyReminders', 'MyTimer', 'MyAlarm']
 		self._TimerEventType = list()
 		self._preDefinedEvent = False
+		self._inProcessStage = False
 
 		self._INTENTS = [
 			(self._INTENT_PREDEFINED_TIMER, self.determinePreDefinedTimer),
@@ -89,7 +91,9 @@ class Reminder(AliceSkill):
 			self._INTENT_ADD_DATE,
 			self._INTENT_SELECT_ITEM,
 			self._INTENT_USER_RANDOM_ANSWER,
-			(self._INTENT_ADD_REMINDER, self.addReminder)
+			(self._INTENT_ADD_REMINDER, self.triggerReminderEvent),
+			(self._INTENT_ADD_TIMER, self.triggerReminderEvent),
+			(self._INTENT_ADD_ALARM, self.triggerReminderEvent)
 		]
 
 		# init Dialog mapping to prevent dialog clashing with other skills
@@ -149,7 +153,21 @@ class Reminder(AliceSkill):
 		return True
 
 	def findTheSeconds(self, session):
+		"""
+		Calculate the seconds the user has requested for the event
+		:param session: The dialog session
+		:return: food = True if it's a food timer, secs = Duration of the timer in seconds
+		"""
+		# Below is a safeguard for if a user uses telegram or dialog view to set an event
+		# Check if CustomData is used due to continueDialog not transferring session data as per normal
+		# When using dialogView or Telegram
+		try :
+			if session.customData['seconds'] > 0 :
+				return session.customData['food'], session.customData['seconds']
+		except:
+			pass
 
+		# Continue as noraml if the session has slot data etc
 		secs : int = 0
 		if 'Duration' in session.slots:
 			self._secondsDuration = self.Commons.getDuration(session)
@@ -162,7 +180,6 @@ class Reminder(AliceSkill):
 			self._dateTimeObject  = datetime.strptime(self._dateTimeStr, '%Y-%m-%d %H:%M:%S')
 			self._secondsDuration  = self._dateTimeObject - datetime.today()  # find the difference between requested time and now
 
-			self.setEventType(session)
 			secs = round(self._secondsDuration.total_seconds())
 
 		food = False
@@ -173,11 +190,12 @@ class Reminder(AliceSkill):
 
 	def addReminder(self, session: DialogSession):
 		"""
-		Ask user for missing details or triggers a short timer if that was requested
+		Asks a user for missing details or triggers a short timer if that was requested.
+		 This Method tries to account for the lack of proper session continuation as per dialogView or Telegram
 		"""
 		food, secs = self.findTheSeconds(session)
 
-		# if user set a short timer (no topic) do this
+		# If a user sets a short timer (no topic) do this
 		if 'ShortTimer' in session.slots and 'Duration' in session.slots:
 			self._reminderMessage = 'for the timer with no topic'
 
@@ -188,33 +206,40 @@ class Reminder(AliceSkill):
 			)
 			self.endDialog(
 				sessionId=session.sessionId,
-				text=f'ok, done'
+				text=f'Ok, done'
 			)
 			return
 
-		# If there's an event date or duration specified then ask for a message
-		if f'{self._eventType}DateAndTime' in session.slots or 'Duration' in session.slots:
+		# Safegaurd for inconsistant session data like dialogView/Telegram etc.
+		try:
+			if session.customData['seconds'] and not self._inProcessStage and session.input:
+				return self.processTheSpecifiedTime(session=session)
+		except:
+			pass
 
+		# If the time requirement has been calculated
+		if secs > 0:
 			self.continueDialog(
 				sessionId=session.sessionId,
 				text=self.randomTalk(text='respondReminderMessage', replace=[self._eventType]),
 				intentFilter=[self._INTENT_USER_RANDOM_ANSWER],
 				customData={
 					"seconds" : secs,
-					"food" : food
+					"food" : food,
+					"eventType" : self._eventType
 				},
-				currentDialogState='AddMessageToReminder'
+				currentDialogState='AddMessageToReminder',
+				probabilityThreshold=0.1
 			)
-		# If there's no time set then ask for one
-		else:
-			if f'{self._eventType}DateAndTime' not in session.slots or 'Duration' not in session.slots:
-				self.continueDialog(
-					sessionId=session.sessionId,
-					text=self.randomTalk(text='respondSetDuration', replace=[self._eventType]),
-					intentFilter=[self._INTENT_ADD_DATE],
-					currentDialogState='AddedTheDateOrDuration',
-					slot='ReminderDateAndTime' or 'Duration'
-				)
+		# If there's no seconds set then ask for one
+		else :
+			self.continueDialog(
+				sessionId=session.sessionId,
+				text=self.randomTalk(text='respondSetDuration', replace=[self._eventType]),
+				intentFilter=[self._INTENT_ADD_DATE],
+				currentDialogState='AddedTheDateOrDuration',
+				slot='ReminderDateAndTime' or 'Duration'
+			)
 
 	def determinePreDefinedTimer(self, session: DialogSession):
 		"""
@@ -261,8 +286,11 @@ class Reminder(AliceSkill):
 
 		self._reminderMessage = session.payload['input']  # set the reminder message
 
-		if session.customData['food']:
-			self.setFoodTimer(session, session.customData['seconds'])
+		try:
+			if session.customData['food']:
+				self.setFoodTimer(session, session.customData['seconds'])
+		except:
+			pass
 
 		else:
 			self.processAndStoreReminder(session, session.customData['seconds'])
@@ -276,7 +304,8 @@ class Reminder(AliceSkill):
 		:param secs: The seconds between "now" and when the event is to trigger
 		:return:
 		"""
-		self.logDebug(f'The requested time converted to seconds is {secs}')
+		self.logDebug(f'The requested time converted to seconds is {secs} \n Message = {self._reminderMessage}')
+		self._inProcessStage = True
 
 		# count of the amount of rows in the Database
 		myTablecount = self.tableRowCount()
@@ -330,6 +359,7 @@ class Reminder(AliceSkill):
 				func=self.runReminder,
 				args=[self._eventType, self._reminderMessage]
 			)
+			self._inProcessStage = False
 
 		# write Timer info to the database or not depending on length of time (saves double up reminder from onFive trigger
 		try:
@@ -347,6 +377,7 @@ class Reminder(AliceSkill):
 			return
 
 		# Alice Confirming that the Reminder has been set ..........................................................
+		self._inProcessStage = False
 		self.endDialog(
 			sessionId=session.sessionId,
 			text=self.randomTalk('respondConfirmed', replace=[self._eventType, self._reminderMessage, vocalTime])
@@ -450,10 +481,7 @@ class Reminder(AliceSkill):
 		"""
 		Retrieve all database values and put into vars to reduce database reads later on
 		"""
-		# self.updateInternalIdNumberOfDb()  # resets internalId column to rowid value
 
-		# Todo What??
-		# Answer = try and reduce db reads
 		self._dbTableValues = list()
 		for row in self.databaseFetch(tableName=self._activeDataBase, query='SELECT * FROM :__table__ '):
 			if row:
@@ -747,22 +775,13 @@ class Reminder(AliceSkill):
 			self._eventType = 'Alarm'
 			self._activeDataBase = self._ALARMDBNAME
 
+		self.Commons.getMethodCaller(EventType=self._eventType)
 		self.viewTableValues()
 
-
-	# Used for setting up an alarm - required
-	@IntentHandler('SetUpAlarm')
-	def setAlarmIntent(self, session: DialogSession):
+	# Used to set event type before adding the actual event
+	def triggerReminderEvent(self, session: DialogSession):
 		self.setEventType(session)
 		self.addReminder(session)
-
-
-	# Used for setting up a timer - required
-	@IntentHandler('SetUpTimer')
-	def setTimerIntent(self, session: DialogSession):
-		self.setEventType(session)
-		self.addReminder(session)
-
 
 	# Used for deleting an item(s) - required
 	@IntentHandler('ReminderDelete')
@@ -789,8 +808,3 @@ class Reminder(AliceSkill):
 	def stopReminderIntent(self, session: DialogSession):
 		self.setEventType(session)
 		self.getItemFromList(session)
-
-
-	@IntentHandler('ReminderMessage')
-	def addReminderIntent(self, session: DialogSession):
-		self.processTheSpecifiedTime(session)

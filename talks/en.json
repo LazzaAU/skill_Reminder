@@ -2,10 +2,10 @@
     "brushingTeeth": {
         "default": [
             "Stop brushing your teeth now",
-            "Time to stop brushing your Teeth"
+            "Time to stop brushing your teeth"
         ],
         "short": [
-            "Stop"
+            "Stop brushing"
         ]
     },
     "databaseError": {
@@ -14,12 +14,12 @@
             "Oh no, I'm not able to remember that for you."
         ],
         "short": [
-            "Can't remember that one..."
+            "Can't remember that one."
         ]
     },
     "respondAskConfirmation": {
         "default": [
-            "Are you sure you want to delete all of your {}'s?"
+            "Are you sure you want to delete all of your {0}'s?"
         ],
         "short": [
             "Are you sure?"
@@ -36,10 +36,10 @@
     },
     "respondDelete": {
         "default": [
-            "No worries I have deleted that {} for you.",
-            "All sorted, cleaned up your {}'s like no one was here.",
-            "Wow, I not only deleted that {} i sent it on a mission to mars.",
-            "Seems I did that correctly. That {} is not there now."
+            "No worries I have deleted that {0} for you.",
+            "All sorted, cleaned up your {0}'s like no one was here.",
+            "Wow, I not only deleted that {0} i sent it on a mission to mars.",
+            "Seems I did that correctly. That {0} is not there now."
         ],
         "short": [
             "Sorted!",
@@ -48,10 +48,10 @@
     },
     "respondDeleteAll": {
         "default": [
-            "No worries i have deleted the {}'s for you!",
-            "All sorted, cleaned up all of your {}'s like no one was here.",
-            "The tables clean captain. No more {}'s stored!",
-            "{}'s deleted. Housework done. Think i'll go polish my resistors now."
+            "No worries i have deleted the {0}'s for you!",
+            "All sorted, cleaned up all of your {0}'s like no one was here.",
+            "The tables clean captain. No more {0}'s stored!",
+            "{0}'s deleted. Housework done. Think i'll go polish my resistors now."
         ],
         "short": [
             "Sorted!",
@@ -101,23 +101,23 @@
             "This is your {0} for, \"{1}\"."
         ],
         "short": [
-            "Reminder {}."
+            "Reminder {1}."
         ]
     },
     "respondReminderMessage": {
         "default": [
-            "What message would you like me to set for this {}?",
-            "What topic would you like me to call this {}?"
+            "What message would you like me to set for this {0}?",
+            "What topic would you like me to call this {0}?"
         ],
         "short": [
-            "whats the message?",
-            "what's the {} message?"
+            "What's the message?",
+            "What's the {0} message?"
         ]
     },
     "respondSetDuration": {
         "default": [
-            "What time do you want the {} set for?",
-            "When do you want the {} to re occur?"
+            "What time do you want the {0} set for?",
+            "When do you want the {0} to re occur?"
         ],
         "short": [
             "For when?",
@@ -126,7 +126,7 @@
     },
     "respondSetReminder": {
         "default": [
-            "Reminder has been set for {}.",
+            "Reminder has been set for {0}.",
             "I will remind you on {0} about the reminder {1}."
         ],
         "short": [
@@ -148,7 +148,7 @@
     },
     "respondToANoReply": {
         "default": [
-            "ok I'll go back to dusting off my circuit board and forget about that {}...",
+            "ok I'll go back to dusting off my circuit board and forget about that {0}...",
             "Sure, I'm forgetting you even said a word...",
             "Ok, I'm busy heating up a raspberry pie anyway!"
         ],
@@ -164,11 +164,11 @@
     },
     "teaReady": {
         "default": [
-            "your {0} of tea is ready ",
-            "the {0} of tea is brewed to perfection now"
+            "Your {0} of tea is ready ",
+            "The {0} of tea is brewed to perfection now"
         ],
         "short": [
-            "tea is ready"
+            "Tea is ready"
         ]
     },
     "washingHands": {
