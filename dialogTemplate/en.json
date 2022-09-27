@@ -303,30 +303,14 @@
 			"name": "ReminderStop",
 			"enabledByDefault": true,
 			"utterances": [
-				"{cancel:=>Stop} a {reminder:=>ReminderEvent}",
-				"{cancel:=>Stop} one of my {Alarms:=>ReminderEvent}",
+				"{cancel:=>Stop} a {alarm:=>ReminderEvent}",
 				"{stop:=>Stop} {reminder:=>ReminderEvent}",
-				"Can you {cancel:=>Stop} a {Timer:=>ReminderEvent} please",
 				"{stop:=>Stop} a current {reminder:=>ReminderEvent}",
 				"{stop:=>Stop} my {Alarm:=>ReminderEvent}",
 				"{stop:=>Stop} the {reminder:=>ReminderEvent}",
 				"{cancel:=>Stop} the current {Timer:=>ReminderEvent}",
 				"{cancel:=>Stop} a {timer:=>ReminderEvent}",
-				"{cancel:=>Stop} one of my {timers:=>ReminderEvent}",
-				"{stop:=>Stop} {timer:=>ReminderEvent}",
-				"Can you {cancel:=>Stop} a {timer:=>ReminderEvent} please",
-				"{stop:=>Stop} a current {timer:=>ReminderEvent}",
-				"{stop:=>Stop} the {timer:=>ReminderEvent}",
-				"{stop:=>Stop} my {timers:=>ReminderEvent}",
-				"{cancel:=>Stop} the current {timer:=>ReminderEvent}",
-				"{cancel:=>Stop} a {alarm:=>ReminderEvent}",
-				"{cancel:=>Stop} one of my {alarms:=>ReminderEvent}",
-				"{stop:=>Stop} {alarm:=>ReminderEvent}",
-				"Can you {cancel:=>Stop} a {alarm:=>ReminderEvent} please",
-				"{stop:=>Stop} a current {alarm:=>ReminderEvent}",
-				"{stop:=>Stop} my {alarms:=>ReminderEvent}",
-				"{stop:=>Stop} the {alarm:=>ReminderEvent}",
-				"{cancel:=>Stop} the current {alarm:=>ReminderEvent}"
+				"{cancel:=>Stop} one of my {timers:=>ReminderEvent}"
 			],
 			"slots": [
 				{
