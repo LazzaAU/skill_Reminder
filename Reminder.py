@@ -10,7 +10,7 @@ from core.util.Decorators import IntentHandler
 
 class Reminder(AliceSkill):
 	"""
-	Author: @Lazza.
+	Author: @Lazza. test
 	 This skill utilises these main methods for functional operation
 		- addReminder initiates the reminder process between user and Alice
 		- Then passes onto processTheSpecifiedTime() for processing of the time
