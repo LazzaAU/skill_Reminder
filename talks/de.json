@@ -13,10 +13,10 @@
   },
   "respondDeleteAll": {
 	"default": [
-	  "Keine sorge ich habe die {} für dich gelöscht.",
-	  "Alles erledigt, ich habe deine {} gelöscht.",
-	  "Ok, ich habe alle {} gelöscht",
-	  "{} gelöscht."
+	  "Keine sorge ich habe die {0} für dich gelöscht.",
+	  "Alles erledigt, ich habe deine {0} gelöscht.",
+	  "Ok, ich habe alle {0} gelöscht",
+	  "{0} gelöscht."
 	],
 	"short": [
 	  "Erledigt.",
@@ -25,10 +25,10 @@
   },
   "respondDelete": {
 	"default": [
-	  "Ok, ich habe den {} für dich gelöscht.",
-	  "Erledigt, ich habe deinen {} gelöscht.",
-	  "Von dem {} wirst du nichts mehr hören.",
-	  "Der {} ist fort. Ok?"
+	  "Ok, ich habe den {0} für dich gelöscht.",
+	  "Erledigt, ich habe deinen {0} gelöscht.",
+	  "Von dem {0} wirst du nichts mehr hören.",
+	  "Der {0} ist fort. Ok?"
 	],
 	"short": [
 	  "Erledigt.",
@@ -60,7 +60,7 @@
   },
   "respondSetReminder": {
 	"default": [
-	  "Erinnerung wurde auf {} gesetzt",
+	  "Erinnerung wurde auf {0} gesetzt",
 	  "Ich erinner dich um {0} wegen {1}"
 	],
 	"short": [
@@ -70,8 +70,8 @@
   },
   "respondReminderMessage": {
 	"default": [
-	  "Welche Nachricht willst du für den {} hinterlegen?",
-	  "Wie lautete das Thema für den {}?"
+	  "Welche Nachricht willst du für den {0} hinterlegen?",
+	  "Wie lautete das Thema für den {0}?"
 	],
 	"short": [
 	  "Wie lautet die Nachricht?"
@@ -79,8 +79,8 @@
   },
   "respondSetDuration": {
 	"default": [
-	  "Zu welcher Zeit soll der {} sein?",
-	  "Wann soll der {} auftreten?"
+	  "Zu welcher Zeit soll der {0} sein?",
+	  "Wann soll der {0} auftreten?"
 	],
 	"short": [
 	  "Für wann?",
@@ -93,7 +93,7 @@
 	  "Das ist dein {0} für {1}"
 	],
 	"short": [
-	  "Erinnerung {}"
+	  "Erinnerung {0}"
 	]
   },
   "respondConfirmed": {
@@ -106,13 +106,13 @@
 	]
   },
   "respondNoActive": [
-	"Du hast aktuell keinen {}"
+	"Du hast aktuell keinen {0}"
   ],
   "respondNoNumber": [
 	"Die Zahl konnte ich nicht verstehen, bitte nochmal!"
   ],
   "respondAskConfirmation": [
-	"Bist du dir sicher dass ich alle {} löschen soll?"
+	"Bist du dir sicher dass ich alle {0} löschen soll?"
   ],
   "respondListOfItems": [
 	"Bitte wiederhole die Nummer des Eintrags den du bearbeiten willst. {0}",
