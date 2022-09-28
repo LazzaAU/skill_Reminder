@@ -1,2 +1,12 @@
-[ "set a reminder", "set a timer", "set an alarm", "remember this", "remind me", "wake me", "timer", "reminder", "alarm" ]
+[
+	"set a reminder",
+ 	"set a timer",
+  	"set an alarm",
+   	"remember this",
+    "remind me",
+    "wake me",
+    "timer",
+    "reminder",
+    "alarm"
+]
 
